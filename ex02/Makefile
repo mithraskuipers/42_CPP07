@@ -1,5 +1,5 @@
 # Executable name
-NAME = cpp07_ex02
+NAME = array
 
 # Compiler and flags
 CC = c++
