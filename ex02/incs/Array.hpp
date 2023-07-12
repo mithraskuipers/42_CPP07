@@ -6,7 +6,7 @@
 /*   By: mikuiper <mikuiper@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/25 22:35:07 by mikuiper      #+#    #+#                 */
-/*   Updated: 2023/06/25 23:17:41 by mikuiper      ########   odam.nl         */
+/*   Updated: 2023/07/12 13:29:42 by mikuiper      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,18 @@
 # define ARRAY_H
 
 #include <exception>
+
+/*
+Difference explicit and implicit conversions:
+
+Explicit:
+unsigned int n = 5;
+Array<int> arr(n); // Explicitly construct an Array object
+
+Implicit:
+unsigned int n = 5;
+Array<int> arr = n; // Implicit conversion from unsigned int to Array
+*/
 
 template <typename T>
 class Array
@@ -24,8 +36,8 @@ class Array
 		Array(const Array& other);
 		Array& operator=(const Array& other);
 
-		explicit Array(unsigned int n); // "Construction with an unsigned int n as a parameter"
-		T& operator[](unsigned int index);
+		explicit Array(unsigned int n); // "Construction with an unsigned int n as a parameter". Indicates that you want to prevent implicit conversions from unsigned int to Array.
+		T& operator[](unsigned int index); // Overload the subscript operator
 		unsigned int size() const;
 	private:
 		T* elements;
@@ -77,22 +89,22 @@ Array<T>& Array<T>::operator=(const Array& other)
 	return *this;
 }
 
-// Destructor
 template <typename T>
 Array<T>::~Array()
 {
 	delete[] elements;
+	elements = 0; // Set elements to 0 after deletion
 }
 
 // Subscript operator (this introduces array indexing functionality)
 template <typename T>
 T& Array<T>::operator[](unsigned int index)
 {
-	if (index > this->length)
+	if (index >= this->length)
 	{
 		throw std::exception();
 	}
-	return (elements[index]);
+	return elements[index];
 }
 
 // Size member function

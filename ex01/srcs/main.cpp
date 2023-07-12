@@ -6,7 +6,7 @@
 /*   By: mikuiper <mikuiper@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/23 20:23:30 by mikuiper      #+#    #+#                 */
-/*   Updated: 2023/06/25 22:20:15 by mikuiper      ########   odam.nl         */
+/*   Updated: 2023/07/12 13:17:31 by mikuiper      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int main()
 	std::cout << "Example of integer array:" << std::endl;
 	int intArray[] = {1, 2, 3, 4, 5};
 	size_t intArrayLen = sizeof(intArray) / sizeof(intArray[0]);
-	iter(intArray, intArrayLen, printElement<int>);
+	iter(intArray, intArrayLen, printElement<int>); // with <> you specify the type that will be used for the function templates
 
 	std::cout << std::endl;
 	std::cout << "Example of float array:" << std::endl;
