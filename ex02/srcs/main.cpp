@@ -6,11 +6,11 @@
 /*   By: mikuiper <mikuiper@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/23 20:23:30 by mikuiper      #+#    #+#                 */
-/*   Updated: 2023/07/12 13:24:41 by mikuiper      ########   odam.nl         */
+/*   Updated: 2023/07/15 09:59:00 by mikuiper      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
+///*
 #include <iostream>
 #include "Array.hpp"
 
@@ -58,8 +58,9 @@ int main() {
 
 	return 0;
 }
-*/
+//*/
 
+/*
 #include <iostream>
 #include <cstdlib>
 #include <Array.hpp>
@@ -114,3 +115,4 @@ int main(int, char**)
     delete [] mirror;//
     return 0;
 }
+*/

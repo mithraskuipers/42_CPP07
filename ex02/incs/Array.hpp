@@ -6,7 +6,7 @@
 /*   By: mikuiper <mikuiper@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/06/25 22:35:07 by mikuiper      #+#    #+#                 */
-/*   Updated: 2023/07/12 13:29:42 by mikuiper      ########   odam.nl         */
+/*   Updated: 2023/07/15 10:52:50 by mikuiper      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ template <typename T>
 class Array
 {
 	public:
-		Array(); // "Construction with no parameter: Creates an empty array"
+		Array();																// "Construction with no parameter: Creates an empty array"
 		~Array();
 		Array(const Array& other);
 		Array& operator=(const Array& other);
 
-		explicit Array(unsigned int n); // "Construction with an unsigned int n as a parameter". Indicates that you want to prevent implicit conversions from unsigned int to Array.
-		T& operator[](unsigned int index); // Overload the subscript operator
+		explicit Array(unsigned int n);											// "Construction with an unsigned int n as a parameter". Indicates that you want to prevent implicit conversions from unsigned int to Array.
+		T& operator[](unsigned int index);										// Overload the subscript operator
 		unsigned int size() const;
 	private:
 		T* elements;
@@ -45,19 +45,20 @@ class Array
 };
 
 // Default constructor
-template <typename T>
-Array<T>::Array() : elements(NULL), length(0)
+template <typename T>															// Allows to create generic array that holds elements of any type T. Now it can be instantiated with different types at compile time.
+Array<T>::Array() : elements(NULL), length(0)									// Array<T>::Array() instead of Array::Array() because we have a template class. This constructor belongs to the template class Array<T>.
 {
-	
+
 }
 
 // Constructor with size parameter
+// Dynamically allocate memory for the elements array with size n using the new operator
 template <typename T>
-Array<T>::Array(unsigned int n) : elements(new T[n]), length(n)
+Array<T>::Array(unsigned int n) : elements(new T[n]), length(n)					// Allocate memory
 {
 	for (unsigned int i = 0; i < length; i++)
 	{
-		elements[i] = T();
+		this->elements[i] = T();														// Init element to default val using default constructor
 	}
 }
 
@@ -67,7 +68,7 @@ Array<T>::Array(const Array& other) : elements(new T[other.length]), length(othe
 {
 	for (unsigned int i = 0; i < length; i++)
 	{
-		elements[i] = other.elements[i];
+		this->elements[i] = other.elements[i];
 	}
 }
 
@@ -77,23 +78,23 @@ Array<T>& Array<T>::operator=(const Array& other)
 {
 	if (this != &other)
 	{
-		T* newElements = new T[other.length];
+		T* newElements = new T[other.length];									// Create a new array to hold the elements of 'other'
 		for (unsigned int i = 0; i < other.length; i++)
 		{
-			newElements[i] = other.elements[i];
+			newElements[i] = other.elements[i];									// Copy each element from 'other' to the new array
 		}
-		delete[] elements;
-		elements = newElements;
-		length = other.length;
+		delete[] this->elements;														// Delete the existing elements array
+		this->elements = newElements;													// Update the elements with the new array
+		this->length = other.length;													// Update the length with the length of 'other'
 	}
-	return *this;
+	return *this;																// Return a reference to the current object
 }
 
 template <typename T>
 Array<T>::~Array()
 {
-	delete[] elements;
-	elements = 0; // Set elements to 0 after deletion
+	delete[] this->elements;
+	this->elements = 0; // Set elements to 0 after deletion
 }
 
 // Subscript operator (this introduces array indexing functionality)
@@ -104,14 +105,14 @@ T& Array<T>::operator[](unsigned int index)
 	{
 		throw std::exception();
 	}
-	return elements[index];
+	return this->elements[index];
 }
 
 // Size member function
 template <typename T>
 unsigned int Array<T>::size() const
 {
-	// Where this this value come from? Well when you construct the array,
+	// Where this this value come from? When you construct the array,
 	// you need to specify the length. Simply that value is being read here.
 	// It is basically a getter function for length.
 	return (this->length);
